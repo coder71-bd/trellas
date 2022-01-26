@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Footer from './pages/shared/Home/Footer/Footer';
 import Header from './pages/shared/Home/Header/Header';
 import Home from './pages/shared/Home/Home';
+import Login from './pages/shared/Login/Login';
 
 const App = () => {
   return (
@@ -10,7 +12,9 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

@@ -4,10 +4,7 @@ import Sidebar from '../../../../components/Sidebar';
 
 const Banner = () => {
   return (
-    <div
-      className="bg-rose-500 relative"
-      style={{ height: 'calc(100vh - 95px)' }}
-    >
+    <div className="relative" style={{ height: 'calc(100vh - 95px)' }}>
       <Carousel />
       <Sidebar />
       <div className="absolute top-1/4 lg:left-0 bg-cyan-500/40 mt-6 mr-2 md:mr-0 md:ml-6 lg:ml-12 p-4 md:p-6 roudned-3xl">

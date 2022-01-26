@@ -1,18 +1,19 @@
 import { faAlignRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../../../../components/Avatar';
 
 const links = [
   { path: '/', name: 'Home' },
-  { path: '/#', name: 'link2' },
-  { path: '/#', name: 'link3' },
-  { path: '/#', name: 'link4' },
+  { path: '/', name: 'link2' },
+  { path: '/', name: 'link3' },
+  { path: '/', name: 'link4' },
 ];
 
 const Header = () => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const user = false; // will come from firebase
 
   return (
@@ -38,6 +39,7 @@ const Header = () => {
               <button
                 type="button"
                 className="btn bg-success py-3 hover:bg-green-400"
+                onClick={() => navigate('/login')}
               >
                 Login
               </button>
