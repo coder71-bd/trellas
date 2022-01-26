@@ -1,5 +1,5 @@
 function App() {
-  return <div>Welcome to trellas</div>;
+  return <div className="text-3xl font-bold underline">Welcome to trellas</div>;
 }
 
 export default App;
