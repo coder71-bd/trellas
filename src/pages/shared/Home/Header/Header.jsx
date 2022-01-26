@@ -20,7 +20,7 @@ const Header = () => {
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link
           to="/"
-          className="text-lg font-semibold pl-2 text-blue-400 pt-1 md:pl-6"
+          className="text-lg font-semibold pl-2 text-blue-400 pt-2  md:pl-6"
         >
           Trellas
         </Link>
@@ -37,7 +37,7 @@ const Header = () => {
             ) : (
               <button
                 type="button"
-                className="btn bg-error py-3 hover:bg-red-500"
+                className="btn bg-success py-3 hover:bg-green-400"
               >
                 Login
               </button>
@@ -65,12 +65,12 @@ const Header = () => {
           } justify-between items-center w-full md:flex md:w-auto md:order-1 transition-all ease-out duration-500`}
           id="mobile-menu"
         >
-          <ul className="flex flex-col mt-4 md:flex-row md:space-x-12 md:mt-0 md:text-sm md:font-medium">
+          <ul className="flex flex-col mt-4 md:flex-row md:space-x-12 md:mt-0 md:text-sm md:font-medium md:px-2">
             {links.map((link) => (
               <li key={link.name}>
                 <Link
                   to={link.path}
-                  className="block text-base font-semibold tracking-widest border border-l-warning border-l-8 mt-2 rounded-lg md:rounded-0 md:border-0 md:pt-0 py-2 pr-4 pl-3 text-primary md:hover:text-warning transition-colors duration-150 md:p-0"
+                  className="block text-base font-semibold tracking-widest border border-l-warning border-l-8 mt-2 rounded-lg md:rounded-0 md:border-0 md:pt-0 text-primary md:hover:text-warning transition-colors duration-150 pl-4 md:pl-0 md:p-0"
                   aria-current="page"
                 >
                   {link.name}

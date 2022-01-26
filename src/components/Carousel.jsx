@@ -35,7 +35,7 @@ const ShowCarousel = () => {
               src={image.src}
               alt={image.legend}
               className="w-full"
-              style={{ height: 'calc(100vh - 90px)' }}
+              style={{ height: 'calc(100vh - 95px)' }}
             />
           </div>
         </div>
