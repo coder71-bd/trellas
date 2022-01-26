@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../../../components/Avatar';
 
 const links = [
-  { path: '/home', name: 'Home' },
+  { path: '/', name: 'Home' },
   { path: '/#', name: 'link2' },
   { path: '/#', name: 'link3' },
   { path: '/#', name: 'link4' },
@@ -16,12 +16,13 @@ const Header = () => {
   const user = false; // will come from firebase
 
   return (
-    <nav className="bg-white shadow-sm w-full px-2 py-9">
+    <nav className="bg-white shadow-sm w-full px-2 py-6">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
-        <Link to="/">
-          <span className="self-center text-lg font-semibold pl-2 md:pl-6">
-            Trellas
-          </span>
+        <Link
+          to="/"
+          className="text-lg font-semibold pl-2 text-blue-400 pt-1 md:pl-6"
+        >
+          Trellas
         </Link>
         <div className="flex items-center md:order-2">
           <div className="flex items-center space-x-0 md:space-x-6 mr-2 md:mr-6">
