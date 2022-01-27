@@ -16,7 +16,6 @@ const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
-  console.log(user);
 
   return (
     <nav className="bg-white shadow-sm w-full px-2 py-6">

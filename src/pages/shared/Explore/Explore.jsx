@@ -2,9 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import explore from '../../../assets/explore_bg.jpg';
 import BlogCard from '../../../components/BlogCard';
+import useBlogs from '../../../hooks/useBlogs';
 
 const Explore = () => {
   const { register, handleSubmit } = useForm();
+  const [blogs, setBlogs] = useBlogs();
+
   const handleFilter = (data) => {
     console.log(data);
   };
@@ -33,14 +36,31 @@ const Explore = () => {
         onSubmit={handleSubmit(handleFilter)}
         className="flex flex-wrap sm:flex-nowrap justify-center items-end shadow-lg py-4 gap-4 sm:py-6 px-3"
       >
-        {/* Search with place name */}
-        <div>
-          <input
-            type="text"
-            placeholder="location Name"
-            {...register('location')}
-            className="p-2 border-2 outline-none rounded-lg"
-          />
+        {/* search with categroy */}
+        <div className="flex justify-center">
+          <div className="mb-3 xl:w-36">
+            <select
+              className="form-select appearance-none
+      block
+      w-full
+      px-3
+      py-2
+      text-base
+      bg-white bg-clip-padding bg-no-repeat
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              aria-label="Default select example"
+              {...register('category')}
+            >
+              <option defaultValue>Tour type</option>
+              <option value="popular">Popular</option>
+              <option value="holidays">Holdiays</option>
+              <option value="mountain">Mountain</option>
+            </select>
+          </div>
         </div>
 
         {/* search with pricing */}
@@ -52,7 +72,7 @@ const Explore = () => {
             min="3000"
             max="9000"
             step="3000"
-            {...register('pricing')}
+            {...register('price')}
           />
           <ul className="flex justify-between">
             <li className="flex justify-center relative">
@@ -103,8 +123,12 @@ const Explore = () => {
         </button>
       </form>
 
-      {/* All blogs */}
-      <BlogCard />
+      {/* All and filtered blogs */}
+      <div className="flex flex-wrap items-center justify-evenly gap-4 my-12">
+        {blogs.map((blog) => (
+          <BlogCard key={blog._id} blog={blog} />
+        ))}
+      </div>
     </section>
   );
 };
