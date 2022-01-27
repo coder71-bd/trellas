@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../../../../components/Avatar';
+import useAuth from '../../../../hooks/useAuth';
 
 const links = [
   { path: '/', name: 'Home' },
@@ -14,7 +15,8 @@ const links = [
 const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const user = false; // will come from firebase
+  const { user } = useAuth();
+  console.log(user);
 
   return (
     <nav className="bg-white shadow-sm w-full px-2 py-6">
@@ -33,7 +35,7 @@ const Header = () => {
                 Experience
               </p>
             </button>
-            {user ? (
+            {user?.emailVerified ? (
               <Avatar />
             ) : (
               <button

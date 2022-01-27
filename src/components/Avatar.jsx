@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import avatar from '../assets/avatar.png';
+import useAuth from '../hooks/useAuth';
 
 const Avatar = ({ src }) => {
   const [show, setShow] = useState(false);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout().then(() => {
+      navigate('/');
+    });
+  };
   return (
     <div className="relative">
       <div
@@ -22,9 +31,12 @@ const Avatar = ({ src }) => {
         <Link to="/user/dashboard" className="border-2 bg-white p-3">
           Dashboard
         </Link>
-        <Link to="/" className="btn p-3 rounded-none bg-error w-full">
+        <button
+          className="btn p-3 rounded-none bg-error w-full"
+          onClick={handleLogout}
+        >
           Logout
-        </Link>
+        </button>
       </div>
     </div>
   );

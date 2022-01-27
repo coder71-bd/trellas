@@ -2,7 +2,8 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
   const {
@@ -12,8 +13,13 @@ const Login = () => {
     reset,
   } = useForm();
 
-  const handleLogin = (data) => {
-    console.log(data);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { setAuthError, user, processSignIn } = useAuth();
+
+  const handleLogin = ({ email, password }) => {
+    processSignIn(email, password, location, navigate);
     reset();
   };
   const handleGoogleLogin = () => {
@@ -22,7 +28,7 @@ const Login = () => {
 
   // clear error messages
   const handleError = () => {
-    // set firebase error to ''
+    setAuthError('');
   };
 
   return (

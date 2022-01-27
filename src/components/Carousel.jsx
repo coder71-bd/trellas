@@ -9,15 +9,15 @@ const ShowCarousel = () => {
   const images = [
     {
       src: travel_one,
-      alt: 'travel 1',
+      alt: 'verona',
     },
     {
       src: travel_two,
-      alt: 'travel 2',
+      alt: 'sylhet',
     },
     {
       src: travel_three,
-      alt: 'travel 3',
+      alt: 'sajek',
     },
   ];
 
@@ -29,7 +29,7 @@ const ShowCarousel = () => {
       swipeable={false}
     >
       {images.map((image) => (
-        <div key={image.legend}>
+        <div key={image.alt}>
           <div>
             <img
               src={image.src}

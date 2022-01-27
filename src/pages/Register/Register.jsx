@@ -2,7 +2,8 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const Register = () => {
   const {
@@ -12,17 +13,21 @@ const Register = () => {
     reset,
   } = useForm();
 
+  const { processSignUp, setAuthError, authError } = useAuth();
+
+  const navigate = useNavigate();
+
   const handleGoogleRegister = () => {
     console.log('google login here');
   };
-  const handleRegister = (data) => {
-    console.log(data);
+  const handleRegister = async ({ name, email, password }) => {
+    const result = await processSignUp(name, email, password, navigate);
     reset();
   };
 
   // clear error messages
   const handleError = () => {
-    // set firebase error to ''
+    setAuthError('');
   };
 
   return (
