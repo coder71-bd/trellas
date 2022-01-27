@@ -1,15 +1,30 @@
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const handleLogin = () => {
-    console.log('login here');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const handleLogin = (data) => {
+    console.log(data);
+    reset();
   };
   const handleGoogleLogin = () => {
     console.log('google login here');
   };
+
+  // clear error messages
+  const handleError = () => {
+    // set firebase error to ''
+  };
+
   return (
     <div
       style={{ minHeight: 'calc(100vh - 100px)' }}
@@ -20,25 +35,50 @@ const Login = () => {
           Trellas
         </p>
         <p className="text-lg">Happy to see you again</p>
-        <form>
+        <form onSubmit={handleSubmit(handleLogin)}>
           {/* email */}
           <div className="mb-6">
             <input
+              onFocus={handleError}
               type="email"
               className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
               placeholder="Email"
-              required
+              {...register('email', {
+                required: 'this field is required',
+                pattern: {
+                  value:
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                  message: 'Please provide correct email address.',
+                },
+              })}
             />
+
+            {errors.email && (
+              <p className="text-error mb-2">{errors.email.message}</p>
+            )}
           </div>
 
           {/* password */}
           <div className="mb-6">
             <input
+              onFocus={handleError}
               type="password"
               className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
               placeholder="password"
-              required
+              {...register('password', {
+                required: 'this field is required',
+                minLength: {
+                  value: 6,
+                  message: 'Your password should be at least 6 characters',
+                },
+              })}
             />
+
+            {errors.password && (
+              <p className="text-error mb-2 w-75 mx-auto">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           {/* Don't have an account */}
@@ -52,11 +92,7 @@ const Login = () => {
           </div>
 
           {/* login button */}
-          <button
-            type="submit"
-            className="btn w-[222px] mx-auto md:w-72 py-2"
-            onClick={handleLogin}
-          >
+          <button type="submit" className="btn w-[222px] mx-auto md:w-72 py-2">
             Login
           </button>
         </form>
