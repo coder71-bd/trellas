@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
-  const handleLogin = () => {
-    console.log('login here');
-  };
-  const handleGoogleLogin = () => {
+const Register = () => {
+  const handleGoogleRegister = () => {
     console.log('google login here');
+  };
+  const handleRegister = () => {
+    console.log('register here');
   };
   return (
     <div
@@ -16,11 +16,23 @@ const Login = () => {
       className="flex flex-col justify-center items-center"
     >
       <div className="w-full md:w-2/3 space-y-6 text-center px-2 md:px-0">
-        <p className="text-6xl font-semibold bg-cyan-600 text-white -mt-8">
+        <p className="text-6xl font-semibold bg-cyan-600 text-white -mt-8 py-1">
           Trellas
         </p>
-        <p className="text-lg">Happy to see you again</p>
+        <p className="text-xl text-primary font-bold tracking-wider">
+          Be a part of our family
+        </p>
         <form>
+          {/* name */}
+          <div className="mb-6">
+            <input
+              type="text"
+              className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
+              placeholder="Name"
+              required
+            />
+          </div>
+
           {/* email */}
           <div className="mb-6">
             <input
@@ -41,28 +53,28 @@ const Login = () => {
             />
           </div>
 
-          {/* Don't have an account */}
+          {/* link to go in login page */}
           <div className="mb-3 text-sm">
             <label htmlFor="remember" className="font-medium text-gray-900">
-              Don't have an account{' '}
-              <Link to="/register" className="text-blue-500 underline">
-                Register now
+              Allready Registered{' '}
+              <Link to="/login" className="text-blue-500 underline">
+                Login here
               </Link>
             </label>
           </div>
 
-          {/* login button */}
+          {/* register button */}
           <button
             type="submit"
             className="btn w-[222px] mx-auto md:w-72 py-2"
-            onClick={handleLogin}
+            onClick={handleRegister}
           >
-            Login
+            Register
           </button>
         </form>
         <button
           className="btn block mx-auto text-xl md:text-2xl"
-          onClick={handleGoogleLogin}
+          onClick={handleGoogleRegister}
         >
           <FontAwesomeIcon icon={faGoogle} className="mr-1" />
           Login With Google
@@ -72,4 +84,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
