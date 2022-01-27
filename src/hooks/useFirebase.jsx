@@ -26,13 +26,18 @@ const useFirebase = () => {
 
   const googleProvider = new GoogleAuthProvider();
 
-  const processSignInWithGoogle = () => {
+  const processSignInWithGoogle = (navigate) => {
     setIsLoading(true); // user trying to log with google
 
     return signInWithPopup(auth, googleProvider)
       .then((result) => {
         const { user } = result;
-        console.log(user);
+        saveUser(user.displayName, user.email);
+        setUser({
+          displayName: user.displayName,
+          email: user.email,
+          emailVerified: user.emailVerified,
+        });
       })
       .catch((error) => setAuthError(error.message));
   };
@@ -126,6 +131,7 @@ const useFirebase = () => {
     user,
     admin,
     isLoading,
+    setIsLoading,
     setAuthError,
     authError,
     processSignInWithGoogle,

@@ -5,6 +5,7 @@ import useAuth from '../../../hooks/useAuth';
 
 const PrivateRoute = ({ children }) => {
   const { user, isLoading } = useAuth();
+  console.log(user);
   const location = useLocation();
 
   if (isLoading) {
@@ -15,10 +16,12 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  return !user.emailVerified ? (
-    <Navigate to="/emailverify" />
-  ) : user.email ? (
-    children
+  return user?.email ? (
+    user?.emailVerified ? (
+      children
+    ) : (
+      <Navigate to="/emailverify" />
+    )
   ) : (
     <Navigate to="/login" state={{ from: location }} />
   );

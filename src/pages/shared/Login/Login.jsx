@@ -16,14 +16,27 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { setAuthError, processSignIn, authError } = useAuth();
+  const redirect_uri = location?.state?.form || '/';
+
+  const {
+    setAuthError,
+    processSignIn,
+    authError,
+    processSignInWithGoogle,
+    setIsLoading,
+  } = useAuth();
 
   const handleLogin = ({ email, password }) => {
     processSignIn(email, password, location, navigate);
     reset();
   };
   const handleGoogleLogin = () => {
-    console.log('google login here');
+    processSignInWithGoogle()
+      .then(() => {
+        navigate(redirect_uri);
+        setIsLoading(false);
+      })
+      .catch((error) => setAuthError(error.message));
   };
 
   // clear error messages
