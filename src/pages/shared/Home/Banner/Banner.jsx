@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Carousel from '../../../../components/Carousel';
 import Sidebar from '../../../../components/Sidebar';
 
 const Banner = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative" style={{ height: 'calc(100vh - 95px)' }}>
       <Carousel />
@@ -17,7 +19,9 @@ const Banner = () => {
           </p>
         </div>
         <div className="w-fit md:mx-auto mt-3 md:mt-6">
-          <button className="btn py-3">Explore</button>
+          <button className="btn py-3" onClick={() => navigate('/explore')}>
+            Explore
+          </button>
         </div>
       </div>
     </div>

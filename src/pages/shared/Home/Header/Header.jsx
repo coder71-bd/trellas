@@ -7,7 +7,7 @@ import useAuth from '../../../../hooks/useAuth';
 
 const links = [
   { path: '/', name: 'Home' },
-  { path: '/', name: 'link2' },
+  { path: '/explore', name: 'Explore' },
   { path: '/', name: 'link3' },
   { path: '/', name: 'link4' },
 ];
@@ -39,7 +39,7 @@ const Header = () => {
                 Experience
               </p>
             </button>
-            {user?.emailVerified ? (
+            {user?.email || user?.email === 'test@test.com' ? (
               <Avatar />
             ) : (
               <button

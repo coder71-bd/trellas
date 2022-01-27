@@ -1,7 +1,7 @@
 import React from 'react';
 
-const makeAdmin = () => {
+const MakeAdmin = () => {
   return <div>this is make admin page</div>;
 };
 
-export default makeAdmin;
+export default MakeAdmin;
