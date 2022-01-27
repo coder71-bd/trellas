@@ -5,6 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import sajek from '../assets/sajek.jpg';
 import BlogDeleteModal from './BlogDeleteModal';
 import BlogEditModal from './BlogEditModal';
@@ -12,6 +13,8 @@ import BlogEditModal from './BlogEditModal';
 const BlogCard = ({ blog }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const navigate = useNavigate();
 
   return (
     <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
@@ -27,7 +30,10 @@ const BlogCard = ({ blog }) => {
           far, in reverse chronological order.
         </p>
         <div className="flex items-center justify-between">
-          <button className="btn bg-info hover:bg-info/70 flex items-center">
+          <button
+            className="btn bg-info hover:bg-info/70 flex items-center"
+            onClick={() => navigate(`/singleBlogDetail/${blog._id}`)}
+          >
             Read more
             <FontAwesomeIcon
               icon={faArrowRight}

@@ -14,6 +14,7 @@ import Home from './pages/shared/Home/Home';
 import Login from './pages/shared/Login/Login';
 import PrivateRoute from './pages/shared/PrivateRoute/PrivateRoute';
 import ShareExperience from './pages/shared/ShareExperience/ShareExperience';
+import SingleBlogDetail from './pages/shared/SingleBlogDetail/SingleBlogDetail';
 
 const App = () => {
   return (
@@ -27,6 +28,10 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/emailverify" element={<EmailVerify />} />
             <Route path="/explore" element={<Explore />} />
+            <Route
+              path="/singleBlogDetail/:id"
+              element={<SingleBlogDetail />}
+            />
             <Route
               path="/shareExperience"
               element={
