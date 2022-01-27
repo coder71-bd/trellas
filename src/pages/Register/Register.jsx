@@ -125,6 +125,9 @@ const Register = () => {
             </label>
           </div>
 
+          {/* show firebase error */}
+          {authError && <p className="text-error my-2">{authError}</p>}
+
           {/* register button */}
           <button type="submit" className="btn w-[222px] mx-auto md:w-72 py-2">
             Register

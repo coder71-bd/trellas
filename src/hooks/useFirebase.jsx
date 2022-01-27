@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -99,11 +100,11 @@ const useFirebase = () => {
   }, [auth]);
 
   // find if the user is admin or not
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:5000/users/${user.email}`)
-  //     .then((response) => setAdmin(response.data.admin));
-  // }, [user.email]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/users/isAdmin?email=${user.email}`)
+      .then((response) => setAdmin(response.data.admin));
+  }, [user.email]);
 
   //process user logout
   const logout = () => {
@@ -117,9 +118,8 @@ const useFirebase = () => {
   };
 
   const saveUser = (displayName, email) => {
-    const user = { displayName, email };
-    console.log(user);
-    // save user to the database here
+    // save user to the database
+    axios.put('http://localhost:5000/user', { email, displayName });
   };
 
   return {

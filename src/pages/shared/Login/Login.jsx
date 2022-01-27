@@ -16,7 +16,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { setAuthError, user, processSignIn } = useAuth();
+  const { setAuthError, processSignIn, authError } = useAuth();
 
   const handleLogin = ({ email, password }) => {
     processSignIn(email, password, location, navigate);
@@ -96,6 +96,9 @@ const Login = () => {
               </Link>
             </label>
           </div>
+
+          {/* show firebase error */}
+          {authError && <p className="text-error my-2">{authError}</p>}
 
           {/* login button */}
           <button type="submit" className="btn w-[222px] mx-auto md:w-72 py-2">

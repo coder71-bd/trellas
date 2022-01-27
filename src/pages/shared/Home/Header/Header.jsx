@@ -29,7 +29,11 @@ const Header = () => {
         </Link>
         <div className="flex items-center md:order-2">
           <div className="flex items-center space-x-0 md:space-x-6 mr-2 md:mr-6">
-            <button type="button" className="btn">
+            <button
+              type="button"
+              className="btn"
+              onClick={() => navigate('/shareExperience')}
+            >
               Share
               <p className="font-bold text-xs md:inline md:pl-2 md:text-base">
                 Experience
