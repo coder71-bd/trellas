@@ -6,12 +6,12 @@ import useAuth from '../../../hooks/useAuth';
 const AdminRoute = ({ children }) => {
   const { user, isLoading, admin } = useAuth();
   const location = useLocation();
-  console.log(admin);
+
   if (isLoading) {
     return <Spinner />;
   }
 
-  return user?.email && admin ? (
+  return user?.email && (admin || !isLoading) ? (
     children
   ) : (
     <Navigate to="/login" state={{ from: location }} />

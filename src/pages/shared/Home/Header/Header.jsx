@@ -5,17 +5,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../../../../components/Avatar';
 import useAuth from '../../../../hooks/useAuth';
 
-const links = [
+let links = [
   { path: '/', name: 'Home' },
   { path: '/explore', name: 'Explore' },
-  { path: '/', name: 'link3' },
-  { path: '/', name: 'link4' },
 ];
 
 const Header = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, admin } = useAuth();
+
+  if (admin) {
+    links = [
+      { path: '/', name: 'Home' },
+      { path: '/explore', name: 'Explore' },
+      { path: '/admin/approveBlogs', name: 'Approve' },
+      { path: '/admin/makeAdmin', name: 'Make Admin' },
+    ];
+  }
 
   return (
     <nav className="bg-white shadow-sm w-full px-2 py-6">

@@ -6,11 +6,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import sajek from '../assets/sajek.jpg';
 import BlogDeleteModal from './BlogDeleteModal';
 import BlogEditModal from './BlogEditModal';
 
-const BlogCard = ({ blog }) => {
+const BlogCard = ({ blog, children }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -19,15 +18,14 @@ const BlogCard = ({ blog }) => {
   return (
     <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
       <div>
-        <img className="rounded-t-lg" src={sajek} alt="" />
+        <img className="rounded-t-lg w-full" src={blog.image} alt={blog.name} />
       </div>
       <div className="p-5">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          Noteworthy technology acquisitions 2021
+          {blog.title}
         </h5>
         <p className="mb-3 font-normal text-gray-700">
-          Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order.
+          {blog.desc.slice(0, 100)}...
         </p>
         <div className="flex items-center justify-between">
           <button
@@ -58,6 +56,7 @@ const BlogCard = ({ blog }) => {
             />
           </div>
         </div>
+        {children}
       </div>
       <BlogEditModal
         id={blog._id}
