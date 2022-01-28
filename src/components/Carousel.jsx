@@ -27,6 +27,7 @@ const ShowCarousel = () => {
       showIndicators={false}
       stopOnHover={false}
       swipeable={false}
+      showThumbs={false}
     >
       {images.map((image) => (
         <div key={image.alt}>

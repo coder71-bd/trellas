@@ -47,7 +47,7 @@ const MakeAdmin = () => {
 
           {/* login button */}
           <button type="submit" className="btn w-[222px] mx-auto md:w-72 py-2">
-            Login
+            Submit
           </button>
         </form>
       </div>

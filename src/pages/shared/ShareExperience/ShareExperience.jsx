@@ -1,8 +1,12 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Alert from '../../../components/Alert';
 import useAuth from '../../../hooks/useAuth';
 
 const ShareExperience = () => {
+  const [openAlert, setOpenAlert] = useState();
+
   const {
     register,
     handleSubmit,
@@ -10,10 +14,25 @@ const ShareExperience = () => {
     reset,
   } = useForm();
 
-  const { admin } = useAuth();
+  const { admin, user } = useAuth(false);
 
   const handleShare = (data) => {
-    console.log(data);
+    const date = new Date().toDateString();
+    const status = admin ? 'approved' : 'pending';
+    const allData = {
+      ...data,
+      time: date,
+      name: user.displayName,
+      email: user.email,
+      status,
+    };
+    axios
+      .post('http://localhost:5000/blogs', allData)
+      .then(() => {
+        setOpenAlert(true);
+        reset();
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -22,8 +41,8 @@ const ShareExperience = () => {
       className="flex flex-col justify-center items-center"
     >
       <div className="w-full md:w-2/3 space-y-6 text-center px-2 md:px-0 my-6">
-        <p className="text-6xl font-semibold bg-rose-600 text-white -mt-8 rounded-lg">
-          Share
+        <p className="text-4xl font-semibold bg-rose-600/90 text-white -mt-8 rounded-lg mx-6 py-3">
+          Share Your Travelling Experience
         </p>
         <form onSubmit={handleSubmit(handleShare)}>
           {/* blog title */}
@@ -55,17 +74,17 @@ const ShareExperience = () => {
             <input
               type="text"
               className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
-              placeholder="image"
-              {...register('Blog Image Url', {
+              placeholder="one image of your travelling"
+              {...register('image', {
                 required: 'this field is required',
                 pattern: {
-                  value: /(https?:)?\/\/?[^'"<>]+?\.(jpg|jpeg|gif|png)/,
+                  value: /(https?:)?\/\/?[^'"<>]+?\.(jpg|jpeg|gif|png|com)/,
                   message: 'sorry! this is not an image url',
                 },
               })}
             />
-            {errors.title && (
-              <p className="text-error mb-2">{errors.title.message}</p>
+            {errors.image && (
+              <p className="text-error mb-2">{errors.image.message}</p>
             )}
           </div>
 
@@ -92,7 +111,7 @@ const ShareExperience = () => {
             )}
           </div>
 
-          {/* pricing */}
+          {/* price */}
           <div className="mb-6">
             <input
               type="number"
@@ -195,11 +214,30 @@ const ShareExperience = () => {
           </div>
 
           {/* share button */}
-          <button type="submit" className="btn w-[222px] mx-auto md:w-72 py-2">
+          <button
+            type="submit"
+            className="btn w-[222px] text-xl mx-auto md:w-72 py-3"
+          >
             Share
           </button>
         </form>
       </div>
+
+      {!admin && openAlert && (
+        <Alert
+          message="Your Post is waiting for admin approval"
+          openAlert={openAlert}
+          setOpenAlert={setOpenAlert}
+        />
+      )}
+
+      {admin && openAlert && (
+        <Alert
+          message="Your experience shared with others"
+          openAlert={openAlert}
+          setOpenAlert={setOpenAlert}
+        />
+      )}
     </section>
   );
 };

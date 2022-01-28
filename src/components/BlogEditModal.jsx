@@ -1,26 +1,23 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 
-const BlogEditModal = ({ id, openEditModal, setOpenEditModal }) => {
-  const [blog, setBlog] = useState({});
+const BlogEditModal = ({
+  id,
+  openEditModal,
+  setOpenEditModal,
+  handleEditBlog,
+  blog,
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/blogs/${id}`)
-      .then((response) => setBlog(response.data));
-  }, []);
-
   const handleEdit = (data) => {
-    console.log(data);
+    handleEditBlog(id, data, blog).then(() => setOpenEditModal(false));
   };
 
   return (
@@ -33,13 +30,13 @@ const BlogEditModal = ({ id, openEditModal, setOpenEditModal }) => {
           !openEditModal && 'hidden'
         } overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-40 h-modal md:h-full md:inset-0 flex justify-center itmes-center`}
       >
-        <div className="relative w-full max-w-2xl h-full md:h-auto flex justify-center items-center">
+        <div className="relative w-full max-w-2xl">
           {/* <!-- Modal content --> */}
-          <div className="relative w-full bg-white rounded-lg shadow">
+          <div className="relative w-full bg-white rounded-lg shadow mt-3">
             {/* <!-- Modal header --> */}
             <div className="flex justify-between items-start p-5 rounded-t border-b">
               <h3 className="text-xl font-semibold text-gray-900 lg:text-2xl">
-                Edit the blog
+                Edit this blog
               </h3>
               <FontAwesomeIcon
                 icon={faTimes}
@@ -50,16 +47,17 @@ const BlogEditModal = ({ id, openEditModal, setOpenEditModal }) => {
             </div>
 
             {/* <!-- Modal body --> */}
-            <div className="p-6 space-y-6">
+            <div className="p-6 space-y-3">
               <form onSubmit={handleSubmit(handleEdit)}>
                 {/* blog title */}
                 <div className="mb-6">
+                  <small className="text-xs">Blog title</small>
                   <input
                     type="text"
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
-                    value={blog.title}
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full mx-auto p-2.5 transition-all ease-in-out duration-500"
                     {...register('title', {
                       required: 'this is a required field',
+                      value: blog.title,
                       minLength: {
                         value: 3,
                         message: 'Your name should be at least 3 characters',
@@ -78,30 +76,32 @@ const BlogEditModal = ({ id, openEditModal, setOpenEditModal }) => {
 
                 {/* blog image */}
                 <div className="mb-6">
+                  <small className="text-xs">Blog image</small>
                   <input
                     type="text"
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
-                    value={blog.image}
-                    {...register('Blog Image Url', {
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full mx-auto p-2.5 transition-all ease-in-out duration-500"
+                    {...register('image', {
                       required: 'this field is required',
+                      value: blog.image,
                       pattern: {
                         value: /(https?:)?\/\/?[^'"<>]+?\.(jpg|jpeg|gif|png)/,
                         message: 'sorry! this is not an image url',
                       },
                     })}
                   />
-                  {errors.title && (
-                    <p className="text-error mb-2">{errors.title.message}</p>
+                  {errors.image && (
+                    <p className="text-error mb-2">{errors.image.message}</p>
                   )}
                 </div>
 
                 {/* location */}
                 <div className="mb-6">
+                  <small className="text-xs">Location</small>
                   <input
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
-                    value={blog.location}
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto p-2.5 transition-all ease-in-out duration-500"
                     {...register('location', {
                       required: 'this is a required field',
+                      value: blog.location,
                       minLength: {
                         value: 2,
                         message:
@@ -114,20 +114,20 @@ const BlogEditModal = ({ id, openEditModal, setOpenEditModal }) => {
                     })}
                   />
 
-                  {errors.title && (
-                    <p className="text-error mb-2">{errors.title.message}</p>
+                  {errors.location && (
+                    <p className="text-error mb-2">{errors.location.message}</p>
                   )}
                 </div>
 
                 {/* pricing */}
                 <div className="mb-6">
+                  <small className="text-xs">Traveling price</small>
                   <input
                     type="number"
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
-                    placeholder={blog.price}
-                    value={blog.price}
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto p-2.5 transition-all ease-in-out duration-500"
                     {...register('price', {
                       required: 'this field is required',
+                      value: blog.price,
                       min: {
                         value: 3000,
                         message: 'price should be between 3000 to 9000',
@@ -148,19 +148,20 @@ const BlogEditModal = ({ id, openEditModal, setOpenEditModal }) => {
 
                 {/* rating */}
                 <div className="mb-6">
+                  <small className="text-xs">rate the travelling place</small>
                   <input
                     type="number"
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
-                    placeholder="Enter rating between 0 to 5"
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto p-2.5 transition-all ease-in-out duration-500"
                     {...register('rating', {
                       required: 'this field is required',
+                      value: blog.rating,
                       min: {
                         value: 1,
-                        message: 'give rating between 0 to 5',
+                        message: 'give rating between 1 to 5',
                       },
                       max: {
                         value: 5,
-                        message: 'give rating between 0 to 5',
+                        message: 'give rating between 1 to 5',
                       },
                     })}
                   />
@@ -174,11 +175,14 @@ const BlogEditModal = ({ id, openEditModal, setOpenEditModal }) => {
 
                 {/* experience of the place */}
                 <div className="mb-6">
+                  <small className="text-xs">
+                    Share your travelling experience
+                  </small>
                   <textarea
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full md:w-5/6 mx-auto p-2.5 transition-all ease-in-out duration-500"
-                    value={blog.desc}
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto p-2.5 transition-all ease-in-out duration-500"
                     {...register('desc', {
                       required: 'this field is required',
+                      value: blog.desc,
                       minLength: {
                         value: 50,
                         message: 'write some more about your experience',
@@ -221,26 +225,25 @@ const BlogEditModal = ({ id, openEditModal, setOpenEditModal }) => {
                     <option value="mountain">Mountain</option>
                   </select>
                 </div>
-              </form>
-            </div>
 
-            {/* <!-- Modal footer --> */}
-            <div className="flex items-center p-6 space-x-2 rounded-b ">
-              <button
-                data-modal-toggle="defaultModal"
-                type="button"
-                className="btn bg-success hover:bg-success/50"
-              >
-                Done
-              </button>
-              <button
-                data-modal-toggle="defaultModal"
-                type="button"
-                className="btn bg-error"
-                onClick={() => setOpenEditModal(false)}
-              >
-                Cancel
-              </button>
+                {/* <!-- Modal footer --> */}
+                <div className="flex items-center p-6 space-x-2 rounded-b">
+                  <button
+                    type="submit"
+                    className="btn bg-success hover:bg-success/50"
+                  >
+                    Done
+                  </button>
+                  <button
+                    type="btn"
+                    data-modal-toggle="defaultModal"
+                    className="btn bg-error"
+                    onClick={() => setOpenEditModal(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

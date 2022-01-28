@@ -12,9 +12,11 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import sajek from '../../../../assets/sajek.jpg';
+import useBlogs from '../../../../hooks/useBlogs';
 
 const Footer = () => {
+  const [blogs] = useBlogs();
+
   return (
     <footer className="flex flex-wrap justify-around bg-black text-white py-6 space-y-6 space-x-6">
       {/* logo and contacts */}
@@ -81,51 +83,23 @@ const Footer = () => {
         </h3>
         {/* recent post blog links */}
         <div className="space-y-6">
-          <div className="flex items-center">
-            <img
-              src={sajek}
-              alt="sajek"
-              className="w-20 transform hover:scale-150 transition-transform duration-700 cursor-pointer"
-            />
-            <div className="pl-3">
-              <p className="cursor-pointer hover:text-rose-500 transition-all ease-in duration-500">
-                blog title
-              </p>
-              <p className="cursor-pointer hover:text-rose-500 transition-all ease-in duration-500">
-                january 27 2022
-              </p>
+          {blogs.slice(0, 3).map((blog) => (
+            <div key={blog._id} className="flex items-center">
+              <img
+                src={blog.image}
+                alt="sajek"
+                className="w-20 transform hover:scale-150 transition-transform duration-700 cursor-pointer"
+              />
+              <div className="pl-3">
+                <p className="cursor-pointer hover:text-rose-500 transition-all ease-in duration-500">
+                  {blog.title}
+                </p>
+                <p className="cursor-pointer hover:text-rose-500 transition-all ease-in duration-500">
+                  {blog.time}
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="flex items-center">
-            <img
-              src={sajek}
-              alt="sajek"
-              className="w-20 transform hover:scale-150 transition-transform duration-700 cursor-pointer"
-            />
-            <div className="pl-3">
-              <p className="cursor-pointer hover:text-rose-500 transition-all ease-in duration-500">
-                blog title
-              </p>
-              <p className="cursor-pointer hover:text-rose-500 transition-all ease-in duration-500">
-                january 27 2022
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <img
-              src={sajek}
-              alt="sajek"
-              className="w-20 transform hover:scale-150 transition-transform duration-700 cursor-pointer"
-            />
-            <div className="pl-3">
-              <p className="cursor-pointer hover:text-rose-500 transition-all ease-in duration-500">
-                blog title
-              </p>
-              <p className="cursor-pointer hover:text-rose-500 transition-all ease-in duration-500">
-                january 27 2022
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </footer>

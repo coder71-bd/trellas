@@ -18,22 +18,22 @@ const Pagination = () => {
         </li>
         <li>
           <button className="border-2 border-gray-500 bg-gray-100 hover:bg-gray-200 text-primary rounded-[50%] p-3 text-xl font-extrabold">
-            1
+            2
           </button>
         </li>
         <li>
           <button className="border-2 border-gray-500 bg-gray-100 hover:bg-gray-200 text-primary rounded-[50%] p-3 text-xl font-extrabold">
-            1
+            3
           </button>
         </li>
         <li>
           <button className="border-2 border-gray-500 bg-gray-100 hover:bg-gray-200 text-primary rounded-[50%] p-3 text-xl font-extrabold">
-            1
+            4
           </button>
         </li>
         <li>
           <button className="border-2 border-gray-500 bg-gray-100 hover:bg-gray-200 text-primary rounded-[50%] p-3 text-xl font-extrabold">
-            1
+            5
           </button>
         </li>
         <li>

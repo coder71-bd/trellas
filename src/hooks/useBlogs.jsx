@@ -13,7 +13,7 @@ const useBlogs = (query) => {
     } else {
       axios
         .get('http://localhost:5000/blogs')
-        .then((response) => setBlogs(response.data));
+        .then((response) => setBlogs(response.data.reverse()));
     }
   }, [query]);
   return [blogs, setBlogs];

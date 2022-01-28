@@ -1,17 +1,23 @@
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 import {
   faArrowRight,
   faEdit,
+  faStar,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 import BlogDeleteModal from './BlogDeleteModal';
 import BlogEditModal from './BlogEditModal';
+import Rating from './Rating';
 
-const BlogCard = ({ blog, children }) => {
+const BlogCard = ({ blog, children, handleEditBlog }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const { admin } = useAuth();
 
   const navigate = useNavigate();
 
@@ -20,13 +26,33 @@ const BlogCard = ({ blog, children }) => {
       <div>
         <img className="rounded-t-lg w-full" src={blog.image} alt={blog.name} />
       </div>
-      <div className="p-5">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+      <div className="p-5 space-y-3">
+        {/* blog title */}
+        <h5 className="text-2xl font-bold tracking-tight text-gray-900">
           {blog.title}
         </h5>
-        <p className="mb-3 font-normal text-gray-700">
-          {blog.desc.slice(0, 100)}...
-        </p>
+
+        {/* description */}
+        <p className="font-normal text-gray-700">{blog.desc.slice(0, 50)}...</p>
+
+        {/* price */}
+        <p className="font-semibold text-xl text-info">${blog.price}</p>
+
+        {/* rating */}
+        <div className="flex justify-between">
+          <span className="flex items-center">
+            {<Rating rating={blog.rating} iconType={faStar} />}
+            {<Rating rating={5 - blog.rating} iconType={regularStar} />}
+            <span className="text-gray-600 ml-2 text-xs fw-bold">
+              ({blog.rating}.00)
+            </span>
+          </span>
+
+          {/* approve modal button */}
+          {children}
+        </div>
+
+        {/* read more btn */}
         <div className="flex items-center justify-between">
           <button
             className="btn bg-info hover:bg-info/70 flex items-center"
@@ -41,27 +67,30 @@ const BlogCard = ({ blog, children }) => {
           </button>
 
           {/* edit and delete icons */}
-          <div className="flex items-center spac-x-2">
-            <FontAwesomeIcon
-              icon={faEdit}
-              color="#fff"
-              className="pl-2 text-4xl text-info hover:text-info/50 cursor-pointer transition-all duration-500"
-              onClick={() => setOpenEditModal(true)}
-            />
-            <FontAwesomeIcon
-              icon={faTrashAlt}
-              color="#fff"
-              className="pl-2 text-4xl text-error hover:text-error/50 cursor-pointer transition-all duration-500"
-              onClick={() => setOpenDeleteModal(true)}
-            />
-          </div>
+          {admin && (
+            <div className="flex items-center spac-x-2">
+              <FontAwesomeIcon
+                icon={faEdit}
+                color="#fff"
+                className="pl-2 text-4xl text-info hover:text-info/50 cursor-pointer transition-all duration-500"
+                onClick={() => setOpenEditModal(true)}
+              />
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                color="#fff"
+                className="pl-2 text-4xl text-error hover:text-error/50 cursor-pointer transition-all duration-500"
+                onClick={() => setOpenDeleteModal(true)}
+              />
+            </div>
+          )}
         </div>
-        {children}
       </div>
       <BlogEditModal
         id={blog._id}
         openEditModal={openEditModal}
         setOpenEditModal={setOpenEditModal}
+        handleEditBlog={handleEditBlog}
+        blog={blog}
       />
       <BlogDeleteModal
         id={blog._id}
