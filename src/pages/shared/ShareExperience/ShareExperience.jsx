@@ -41,7 +41,7 @@ const ShareExperience = () => {
       className="flex flex-col justify-center items-center"
     >
       <div className="w-full md:w-2/3 space-y-6 text-center px-2 md:px-0 my-6">
-        <p className="text-4xl font-semibold bg-rose-600/90 text-white -mt-8 rounded-lg mx-6 py-3">
+        <p className="text-lg md:text-4xl font-semibold bg-rose-600/90 text-white -mt-8 rounded-lg mx-0 md:mx-6 py-3">
           Share Your Travelling Experience
         </p>
         <form onSubmit={handleSubmit(handleShare)}>

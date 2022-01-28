@@ -32,9 +32,9 @@ const BlogEditModal = ({
       >
         <div className="relative w-full max-w-2xl">
           {/* <!-- Modal content --> */}
-          <div className="relative w-full bg-white rounded-lg shadow mt-3">
+          <div className="relative w-full bg-white rounded-lg shadow mt-3 px-3">
             {/* <!-- Modal header --> */}
-            <div className="flex justify-between items-start p-5 rounded-t border-b">
+            <div className="flex justify-between items-start p-0 md:p-5 rounded-t border-b">
               <h3 className="text-xl font-semibold text-gray-900 lg:text-2xl">
                 Edit this blog
               </h3>
@@ -47,14 +47,14 @@ const BlogEditModal = ({
             </div>
 
             {/* <!-- Modal body --> */}
-            <div className="p-6 space-y-3">
-              <form onSubmit={handleSubmit(handleEdit)}>
+            <div className="p-0 md:p-6 space-y-2 md:space-y-3">
+              <form onSubmit={handleSubmit(handleEdit)} className="space-y-2">
                 {/* blog title */}
-                <div className="mb-6">
+                <div className="mb-0 md:mb-6">
                   <small className="text-xs">Blog title</small>
                   <input
                     type="text"
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full mx-auto p-2.5 transition-all ease-in-out duration-500"
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full mx-auto px-2 md:p-2.5 transition-all ease-in-out duration-500"
                     {...register('title', {
                       required: 'this is a required field',
                       value: blog.title,
@@ -75,11 +75,11 @@ const BlogEditModal = ({
                 </div>
 
                 {/* blog image */}
-                <div className="mb-6">
+                <div className="mb-0 md:mb-6">
                   <small className="text-xs">Blog image</small>
                   <input
                     type="text"
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full mx-auto p-2.5 transition-all ease-in-out duration-500"
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full mx-auto px-2 md:p-2.5 transition-all ease-in-out duration-500"
                     {...register('image', {
                       required: 'this field is required',
                       value: blog.image,
@@ -96,10 +96,10 @@ const BlogEditModal = ({
                 </div>
 
                 {/* location */}
-                <div className="mb-6">
+                <div className="mb-0 md:mb-6">
                   <small className="text-xs">Location</small>
                   <input
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto p-2.5 transition-all ease-in-out duration-500"
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto px-2 md:p-2.5 transition-all ease-in-out duration-500"
                     {...register('location', {
                       required: 'this is a required field',
                       value: blog.location,
@@ -121,11 +121,11 @@ const BlogEditModal = ({
                 </div>
 
                 {/* pricing */}
-                <div className="mb-6">
+                <div className="mb-0 md:mb-6">
                   <small className="text-xs">Traveling price</small>
                   <input
                     type="number"
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto p-2.5 transition-all ease-in-out duration-500"
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto px-2 md:p-2.5 transition-all ease-in-out duration-500"
                     {...register('price', {
                       required: 'this field is required',
                       value: blog.price,
@@ -148,11 +148,11 @@ const BlogEditModal = ({
                 </div>
 
                 {/* rating */}
-                <div className="mb-6">
+                <div className="mb-0 md:mb-6">
                   <small className="text-xs">rate the travelling place</small>
                   <input
                     type="number"
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto p-2.5 transition-all ease-in-out duration-500"
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto px-2 md:p-2.5 transition-all ease-in-out duration-500"
                     {...register('rating', {
                       required: 'this field is required',
                       value: blog.rating,
@@ -175,12 +175,12 @@ const BlogEditModal = ({
                 </div>
 
                 {/* experience of the place */}
-                <div className="mb-6">
+                <div className="mb-0 md:mb-6">
                   <small className="text-xs">
                     Share your travelling experience
                   </small>
                   <textarea
-                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto p-2.5 transition-all ease-in-out duration-500"
+                    className="border-2 border-gray-400 text-primary rounded-lg focus:border-info outline-none block w-full  mx-auto px-2 md:p-2.5 transition-all ease-in-out duration-500"
                     {...register('desc', {
                       required: 'this field is required',
                       value: blog.desc,
@@ -203,7 +203,7 @@ const BlogEditModal = ({
                 </div>
 
                 {/* category */}
-                <div className="mb-6 w-2/3 mx-auto">
+                <div className="mb-0 md:mb-6 w-2/3 mx-auto">
                   <select
                     className="form-select appearance-none
       block
@@ -228,7 +228,7 @@ const BlogEditModal = ({
                 </div>
 
                 {/* <!-- Modal footer --> */}
-                <div className="flex items-center p-6 space-x-2 rounded-b">
+                <div className="flex items-center p-3 md:p-6 space-x-2 rounded-b">
                   <button
                     type="submit"
                     className="btn bg-success hover:bg-success/50"
