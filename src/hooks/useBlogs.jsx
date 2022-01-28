@@ -7,12 +7,12 @@ const useBlogs = (query) => {
     if (query) {
       axios
         .get(
-          `http://localhost:5000/blogs?category=${query.category}&price=${query.price}&rating=${query.rating}`
+          `https://trellas-backend.herokuapp.com/blogs?category=${query.category}&price=${query.price}&rating=${query.rating}`
         )
         .then((response) => setBlogs(response.data));
     } else {
       axios
-        .get('http://localhost:5000/blogs')
+        .get('https://trellas-backend.herokuapp.com/blogs')
         .then((response) => setBlogs(response.data.reverse()));
     }
   }, [query]);

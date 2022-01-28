@@ -19,7 +19,7 @@ const AllBlogs = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/pagination/blogs?page=${currPage}&size=${size}&isAdmin=${admin}`
+        `https://trellas-backend.herokuapp.com/pagination/blogs?page=${currPage}&size=${size}&isAdmin=${admin}`
       )
       .then((response) => {
         setBlogs(response.data.blogs);
@@ -39,7 +39,7 @@ const AllBlogs = () => {
 
   const handleEditBlog = (id, data, previousBlog) => {
     return axios
-      .put(`http://localhost:5000/blogs/update/${id}`, {
+      .put(`https://trellas-backend.herokuapp.com/blogs/update/${id}`, {
         ...data,
         name: previousBlog.email,
         email: previousBlog.email,
@@ -49,7 +49,7 @@ const AllBlogs = () => {
       .then(() => {
         axios
           .get(
-            `http://localhost:5000/pagination/blogs?page=${currPage}&size=${size}&isAdmin=${admin}`
+            `https://trellas-backend.herokuapp.com/pagination/blogs?page=${currPage}&size=${size}&isAdmin=${admin}`
           )
           .then((response) => {
             setBlogs(response.data.blogs);
@@ -61,18 +61,20 @@ const AllBlogs = () => {
   };
 
   const handleDeleteBlog = (id) => {
-    return axios.delete(`http://localhost:5000/blogs/${id}`).then(() => {
-      axios
-        .get(
-          `http://localhost:5000/pagination/blogs?page=${currPage}&size=${size}&isAdmin=${admin}`
-        )
-        .then((response) => {
-          setBlogs(response.data.blogs);
-          const count = response.data.count;
-          const pageNumber = Math.ceil(count / size);
-          setPageCount(pageNumber);
-        });
-    });
+    return axios
+      .delete(`https://trellas-backend.herokuapp.com/blogs/${id}`)
+      .then(() => {
+        axios
+          .get(
+            `https://trellas-backend.herokuapp.com/pagination/blogs?page=${currPage}&size=${size}&isAdmin=${admin}`
+          )
+          .then((response) => {
+            setBlogs(response.data.blogs);
+            const count = response.data.count;
+            const pageNumber = Math.ceil(count / size);
+            setPageCount(pageNumber);
+          });
+      });
   };
 
   return (

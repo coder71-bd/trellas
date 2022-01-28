@@ -10,7 +10,7 @@ const ApproveBlogs = () => {
 
   const handleEditBlog = (id, data, previousBlog) => {
     return axios
-      .put(`http://localhost:5000/blogs/update/${id}`, {
+      .put(`https://trellas-backend.herokuapp.com/blogs/update/${id}`, {
         ...data,
         name: previousBlog.email,
         email: previousBlog.email,
@@ -18,29 +18,37 @@ const ApproveBlogs = () => {
         status: previousBlog.status,
       })
       .then(() => {
-        axios.get('http://localhost:5000/blogs').then((response) => {
-          setBlogs(response.data.reverse());
-          setOpenUpdateAlert(true);
-        });
+        axios
+          .get('https://trellas-backend.herokuapp.com/blogs')
+          .then((response) => {
+            setBlogs(response.data.reverse());
+            setOpenUpdateAlert(true);
+          });
       });
   };
 
   const handleDeleteBlog = (id) => {
-    return axios.delete(`http://localhost:5000/blogs/${id}`).then(() => {
-      axios.get('http://localhost:5000/blogs').then((response) => {
-        setBlogs(response.data.reverse());
+    return axios
+      .delete(`https://trellas-backend.herokuapp.com/blogs/${id}`)
+      .then(() => {
+        axios
+          .get('https://trellas-backend.herokuapp.com/blogs')
+          .then((response) => {
+            setBlogs(response.data.reverse());
+          });
       });
-    });
   };
 
   const handleBlogApprove = (id) => {
-    axios.put(`http://localhost:5000/blogs/${id}`).then((response) => {
-      if (response.data.modifiedCount === 1) {
-        axios
-          .get('http://localhost:5000/blogs')
-          .then((response) => setBlogs(response.data.reverse()));
-      }
-    });
+    axios
+      .put(`https://trellas-backend.herokuapp.com/blogs/${id}`)
+      .then((response) => {
+        if (response.data.modifiedCount === 1) {
+          axios
+            .get('https://trellas-backend.herokuapp.com/blogs')
+            .then((response) => setBlogs(response.data.reverse()));
+        }
+      });
   };
 
   return (

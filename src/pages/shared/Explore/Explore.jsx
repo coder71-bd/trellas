@@ -16,7 +16,7 @@ const Explore = () => {
 
   const handleEditBlog = (id, data, previousBlog) => {
     return axios
-      .put(`http://localhost:5000/blogs/update/${id}`, {
+      .put(`https://trellas-backend.herokuapp.com/blogs/update/${id}`, {
         ...data,
         name: previousBlog.email,
         email: previousBlog.email,
@@ -24,19 +24,25 @@ const Explore = () => {
         status: previousBlog.status,
       })
       .then(() => {
-        axios.get('http://localhost:5000/blogs').then((response) => {
-          setBlogs(response.data.reverse());
-          setOpenUpdateAlert(true);
-        });
+        axios
+          .get('https://trellas-backend.herokuapp.com/blogs')
+          .then((response) => {
+            setBlogs(response.data.reverse());
+            setOpenUpdateAlert(true);
+          });
       });
   };
 
   const handleDeleteBlog = (id) => {
-    return axios.delete(`http://localhost:5000/blogs/${id}`).then(() => {
-      axios.get('http://localhost:5000/blogs').then((response) => {
-        setBlogs(response.data.reverse());
+    return axios
+      .delete(`https://trellas-backend.herokuapp.com/blogs/${id}`)
+      .then(() => {
+        axios
+          .get('https://trellas-backend.herokuapp.com/blogs')
+          .then((response) => {
+            setBlogs(response.data.reverse());
+          });
       });
-    });
   };
 
   const handleFilter = (data) => {
@@ -47,14 +53,14 @@ const Explore = () => {
     console.log(filter);
     axios
       .get(
-        `http://localhost:5000/blogs?price=${filter.price}&rating=${filter.rating}&category=${filter.category}`
+        `https://trellas-backend.herokuapp.com/blogs?price=${filter.price}&rating=${filter.rating}&category=${filter.category}`
       )
       .then((response) => setBlogs(response.data));
   };
 
   const handleClearFilter = () => {
     axios
-      .get('http://localhost:5000/blogs')
+      .get('https://trellas-backend.herokuapp.com/blogs')
       .then((response) => setBlogs(response.data.reverse()));
   };
 

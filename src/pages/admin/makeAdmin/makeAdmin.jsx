@@ -21,7 +21,7 @@ const MakeAdmin = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/users')
+      .get('https://trellas-backend.herokuapp.com/users')
       .then((response) => setUsers(response.data));
   }, []);
 
@@ -34,7 +34,10 @@ const MakeAdmin = () => {
     };
     console.log(makeAdminData);
     axios
-      .put('http://localhost:5000/user/makeAdmin', makeAdminData)
+      .put(
+        'https://trellas-backend.herokuapp.com/user/makeAdmin',
+        makeAdminData
+      )
       .then((response) => {
         console.log(response.data);
         if (response.data.modifiedCount === 0) {
@@ -43,7 +46,7 @@ const MakeAdmin = () => {
           setError(true);
         } else {
           axios
-            .get('http://localhost:5000/users')
+            .get('https://trellas-backend.herokuapp.com/users')
             .then((response) => setUsers(response.data));
           setError(false);
           setSuccess(true);

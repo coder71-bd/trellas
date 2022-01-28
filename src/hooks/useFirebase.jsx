@@ -107,7 +107,9 @@ const useFirebase = () => {
   // find if the user is admin or not
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/user/isAdmin?email=${user.email}`)
+      .get(
+        `https://trellas-backend.herokuapp.com/user/isAdmin?email=${user.email}`
+      )
       .then((response) => setAdmin(response.data.admin));
   }, [user.email]);
 
@@ -124,7 +126,10 @@ const useFirebase = () => {
 
   const saveUser = (displayName, email) => {
     // save user to the database
-    axios.put('http://localhost:5000/user', { email, displayName });
+    axios.put('https://trellas-backend.herokuapp.com/user', {
+      email,
+      displayName,
+    });
   };
 
   return {

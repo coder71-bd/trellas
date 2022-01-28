@@ -27,7 +27,7 @@ const ShareExperience = () => {
       status,
     };
     axios
-      .post('http://localhost:5000/blogs', allData)
+      .post('https://trellas-backend.herokuapp.com/blogs', allData)
       .then(() => {
         setOpenAlert(true);
         reset();

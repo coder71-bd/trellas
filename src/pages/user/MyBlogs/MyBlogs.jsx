@@ -9,7 +9,9 @@ const MyBlogs = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/user/blogs?email=${user.email}`)
+      .get(
+        `https://trellas-backend.herokuapp.com/user/blogs?email=${user.email}`
+      )
       .then((response) => setBlogs(response.data));
   }, [user.email]);
   return (
