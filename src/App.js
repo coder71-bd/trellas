@@ -32,7 +32,11 @@ const App = () => {
             <Route path="/myblogs" element={<MyBlogs />} />
             <Route
               path="/singleBlogDetail/:id"
-              element={<SingleBlogDetail />}
+              element={
+                <PrivateRoute>
+                  <SingleBlogDetail />
+                </PrivateRoute>
+              }
             />
             <Route
               path="/shareExperience"

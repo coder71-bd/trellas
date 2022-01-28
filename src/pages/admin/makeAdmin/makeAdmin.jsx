@@ -25,14 +25,12 @@ const MakeAdmin = () => {
       .then((response) => setUsers(response.data));
   }, []);
 
-  let alert;
-
   const handleMakeAdmin = (data) => {
     const makeAdminData = {
       requester: user.email,
       newAdminEmail: data.email,
     };
-    console.log(makeAdminData);
+
     axios
       .put(
         'https://trellas-backend.herokuapp.com/user/makeAdmin',
