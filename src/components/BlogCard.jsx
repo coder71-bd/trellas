@@ -43,6 +43,11 @@ const BlogCard = ({
           {blog.title}
         </h5>
 
+        {/* email of the blog writer */}
+        {showStatus && (
+          <p className="text-sm text-info font-semibold">by {blog.email}</p>
+        )}
+
         {/* description */}
         <p className="font-normal text-gray-700">{blog.desc.slice(0, 50)}...</p>
 
