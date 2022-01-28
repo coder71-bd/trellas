@@ -84,7 +84,8 @@ const BlogEditModal = ({
                       required: 'this field is required',
                       value: blog.image,
                       pattern: {
-                        value: /(https?:)?\/\/?[^'"<>]+?\.(jpg|jpeg|gif|png)/,
+                        value:
+                          /(https?:)?\/\/?[^'"<>]+?\.(jpg|jpeg|gif|png|com)/,
                         message: 'sorry! this is not an image url',
                       },
                     })}

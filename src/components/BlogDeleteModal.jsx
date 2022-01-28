@@ -1,6 +1,11 @@
 import React from 'react';
 
-const BlogDeleteModal = ({ id, openDeleteModal, setOpenDeleteModal }) => {
+const BlogDeleteModal = ({
+  id,
+  openDeleteModal,
+  setOpenDeleteModal,
+  handleDeleteBlog,
+}) => {
   return (
     <section>
       {/* <!-- Main modal --> */}
@@ -25,6 +30,7 @@ const BlogDeleteModal = ({ id, openDeleteModal, setOpenDeleteModal }) => {
                 data-modal-toggle="defaultModal"
                 type="button"
                 className="btn bg-error"
+                onClick={() => handleDeleteBlog(id)}
               >
                 Delete
               </button>

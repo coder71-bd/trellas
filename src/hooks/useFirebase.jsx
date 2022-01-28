@@ -114,7 +114,7 @@ const useFirebase = () => {
   //process user logout
   const logout = () => {
     setIsLoading(true);
-    signOut(auth)
+    return signOut(auth)
       .then(() => {})
       .catch((error) => {
         setAuthError(error.message);

@@ -15,6 +15,7 @@ import Login from './pages/shared/Login/Login';
 import PrivateRoute from './pages/shared/PrivateRoute/PrivateRoute';
 import ShareExperience from './pages/shared/ShareExperience/ShareExperience';
 import SingleBlogDetail from './pages/shared/SingleBlogDetail/SingleBlogDetail';
+import MyBlogs from './pages/user/MyBlogs/MyBlogs';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/emailverify" element={<EmailVerify />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/myblogs" element={<MyBlogs />} />
             <Route
               path="/singleBlogDetail/:id"
               element={<SingleBlogDetail />}

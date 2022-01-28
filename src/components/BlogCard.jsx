@@ -13,7 +13,7 @@ import BlogDeleteModal from './BlogDeleteModal';
 import BlogEditModal from './BlogEditModal';
 import Rating from './Rating';
 
-const BlogCard = ({ blog, children, handleEditBlog }) => {
+const BlogCard = ({ blog, children, handleEditBlog, handleDeleteBlog }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -36,7 +36,10 @@ const BlogCard = ({ blog, children, handleEditBlog }) => {
         <p className="font-normal text-gray-700">{blog.desc.slice(0, 50)}...</p>
 
         {/* price */}
-        <p className="font-semibold text-xl text-info">${blog.price}</p>
+        <div className="flex justify-between">
+          <p className="font-semibold text-xl text-info">${blog.price}</p>
+          <p className="font-semibold text-xl capitalize">{blog.location}</p>
+        </div>
 
         {/* rating */}
         <div className="flex justify-between">
@@ -96,6 +99,7 @@ const BlogCard = ({ blog, children, handleEditBlog }) => {
         id={blog._id}
         openDeleteModal={openDeleteModal}
         setOpenDeleteModal={setOpenDeleteModal}
+        handleDeleteBlog={handleDeleteBlog}
       />
     </div>
   );
