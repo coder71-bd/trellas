@@ -46,19 +46,18 @@ const AllBlogs = () => {
       {/* All blogs */}
       <div className="flex flex-wrap items-center justify-evenly gap-2 my-12">
         {admin &&
-          blogs
-            .slice(0, 10)
-            .map((blog) => (
-              <BlogCard
-                key={blog._id}
-                blog={blog}
-                handleEditBlog={handleEditBlog}
-                handleDeleteBlog={handleDeleteBlog}
-              />
-            ))}
+          blogs.map((blog) => (
+            <BlogCard
+              key={blog._id}
+              blog={blog}
+              handleEditBlog={handleEditBlog}
+              handleDeleteBlog={handleDeleteBlog}
+            />
+          ))}
+
+        {/* normal user will see only the approved blogs */}
         {!admin &&
           blogs
-            .slice(0, 10)
             .filter((b) => b.status !== 'pending')
             .map((blog) => (
               <BlogCard

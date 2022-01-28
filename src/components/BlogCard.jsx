@@ -7,17 +7,28 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import BlogApproveModal from './BlogApproveModal';
 import BlogDeleteModal from './BlogDeleteModal';
 import BlogEditModal from './BlogEditModal';
 import Rating from './Rating';
 
-const BlogCard = ({ blog, children, handleEditBlog, handleDeleteBlog }) => {
+const BlogCard = ({
+  blog,
+  children,
+  handleEditBlog,
+  handleDeleteBlog,
+  handleBlogApprove,
+}) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openApproveModal, setOpenApproveModal] = useState(false);
 
   const { admin } = useAuth();
+
+  const location = useLocation();
+  const showStatus = location.pathname === '/admin/approveBlogs';
 
   const navigate = useNavigate();
 
@@ -52,11 +63,25 @@ const BlogCard = ({ blog, children, handleEditBlog, handleDeleteBlog }) => {
           </span>
 
           {/* approve modal button */}
-          {children}
+          {showStatus &&
+            (blog.status === 'pending' ? (
+              <div>
+                <button
+                  className="px-4 py-2 rounded-full text-white bg-error hover:bg-error/50 font-semibold text-sm flex align-center w-max cursor-pointer transition duration-300 ease"
+                  onClick={() => setOpenApproveModal(true)}
+                >
+                  pending
+                </button>
+              </div>
+            ) : (
+              <button className="px-4 py-2 rounded-full text-white bg-success hover:bg-success/50 font-semibold text-sm flex align-center w-max cursor-not-allowed transition-all duration-300 ease">
+                Approved
+              </button>
+            ))}
         </div>
 
-        {/* read more btn */}
         <div className="flex items-center justify-between">
+          {/* read more btn */}
           <button
             className="btn bg-info hover:bg-info/70 flex items-center"
             onClick={() => navigate(`/singleBlogDetail/${blog._id}`)}
@@ -100,6 +125,13 @@ const BlogCard = ({ blog, children, handleEditBlog, handleDeleteBlog }) => {
         openDeleteModal={openDeleteModal}
         setOpenDeleteModal={setOpenDeleteModal}
         handleDeleteBlog={handleDeleteBlog}
+      />
+
+      <BlogApproveModal
+        id={blog._id}
+        openApproveModal={openApproveModal}
+        setOpenApproveModal={setOpenApproveModal}
+        handleBlogApprove={handleBlogApprove}
       />
     </div>
   );
