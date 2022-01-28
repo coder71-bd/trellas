@@ -1,5 +1,4 @@
 import React from 'react';
-import Pagination from '../../../components/Pagination';
 import AllBlogs from './Allblogs/Allblogs';
 import Banner from './Banner/Banner';
 
@@ -8,7 +7,6 @@ const Home = () => {
     <section>
       <Banner />
       <AllBlogs />
-      <Pagination />
     </section>
   );
 };

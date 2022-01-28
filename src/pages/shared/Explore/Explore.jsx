@@ -40,7 +40,22 @@ const Explore = () => {
   };
 
   const handleFilter = (data) => {
-    console.log(data);
+    let filter = data;
+    if (data.category === 'Tour type') {
+      filter = { ...data, category: 'popular' };
+    }
+    console.log(filter);
+    axios
+      .get(
+        `http://localhost:5000/blogs?price=${filter.price}&rating=${filter.rating}&category=${filter.category}`
+      )
+      .then((response) => setBlogs(response.data));
+  };
+
+  const handleClearFilter = () => {
+    axios
+      .get('http://localhost:5000/blogs')
+      .then((response) => setBlogs(response.data.reverse()));
   };
 
   return (
@@ -154,24 +169,23 @@ const Explore = () => {
           Filter
         </button>
       </form>
+      {blogs.length === 0 && (
+        <div className="flex flex-col my-12 justify-center items-center space-y-6">
+          <p className="text-primary font-semibold">Whoops! Nothing Found</p>
+          <button
+            className="btn bg-info hover:bg-info/50"
+            onClick={handleClearFilter}
+          >
+            Clear Filter
+          </button>
+        </div>
+      )}
 
       {/* All and filtered blogs */}
-      <div className="flex flex-wrap items-center justify-evenly gap-4 my-12">
-        {admin &&
-          blogs.map((blog) => (
-            <BlogCard
-              key={blog._id}
-              blog={blog}
-              handleEditBlog={handleEditBlog}
-              handleDeleteBlog={handleDeleteBlog}
-            />
-          ))}
-
-        {/* normal user will see only the approved blogs */}
-        {!admin &&
-          blogs
-            .filter((b) => b.status !== 'pending')
-            .map((blog) => (
+      {blogs.length !== 0 && (
+        <div className="flex flex-wrap items-center justify-evenly gap-4 my-12">
+          {admin &&
+            blogs.map((blog) => (
               <BlogCard
                 key={blog._id}
                 blog={blog}
@@ -179,7 +193,21 @@ const Explore = () => {
                 handleDeleteBlog={handleDeleteBlog}
               />
             ))}
-      </div>
+
+          {/* normal user will see only the approved blogs */}
+          {!admin &&
+            blogs
+              .filter((b) => b.status !== 'pending')
+              .map((blog) => (
+                <BlogCard
+                  key={blog._id}
+                  blog={blog}
+                  handleEditBlog={handleEditBlog}
+                  handleDeleteBlog={handleDeleteBlog}
+                />
+              ))}
+        </div>
+      )}
 
       {openUpdateAlert && (
         <Alert
