@@ -23,7 +23,10 @@ const MyBlogs = () => {
 
   if (blogs.length === 0) {
     return (
-      <div className="flex flex-col my-12 justify-center items-center space-y-6">
+      <div
+        style={{ minHeight: 'calc(100vh - 100px)' }}
+        className="flex flex-col my-12 justify-center items-center space-y-6"
+      >
         <p className="text-primary font-semibold">
           You have not posted any blogs yet.
         </p>
