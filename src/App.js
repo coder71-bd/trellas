@@ -29,7 +29,14 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/emailverify" element={<EmailVerify />} />
             <Route path="/explore" element={<Explore />} />
-            <Route path="/myblogs" element={<MyBlogs />} />
+            <Route
+              path="/myblogs"
+              element={
+                <PrivateRoute>
+                  <MyBlogs />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/singleBlogDetail/:id"
               element={

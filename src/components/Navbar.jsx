@@ -3,12 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import Avatar from './Avatar';
 
 const Navbar = ({ links }) => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout().then(() => {
+      navigate('/');
+    });
+  };
 
   return (
     <div>
@@ -33,7 +38,12 @@ const Navbar = ({ links }) => {
                 </p>
               </button>
               {user?.email || user?.email === 'test@test.com' ? (
-                <Avatar />
+                <button
+                  className="btn p-3 bg-error w-full"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               ) : (
                 <button
                   type="button"

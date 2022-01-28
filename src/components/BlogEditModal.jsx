@@ -28,7 +28,7 @@ const BlogEditModal = ({
         aria-hidden="true"
         className={`${
           !openEditModal && 'hidden'
-        } overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-40 h-modal md:h-full md:inset-0 flex justify-center itmes-center`}
+        } overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-40 h-modal md:h-full md:inset-0 flex justify-center itmes-center bg-gray-100/50`}
       >
         <div className="relative w-full max-w-2xl">
           {/* <!-- Modal content --> */}

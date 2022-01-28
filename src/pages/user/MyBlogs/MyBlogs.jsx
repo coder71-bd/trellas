@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const MyBlogs = () => {
   const [blogs, setBlogs] = useState([]);
+  const navigate = useNavigate();
 
   const { user } = useAuth();
 
@@ -14,6 +16,23 @@ const MyBlogs = () => {
       )
       .then((response) => setBlogs(response.data));
   }, [user.email]);
+
+  if (blogs.length === 0) {
+    return (
+      <div className="flex flex-col my-12 justify-center items-center space-y-6">
+        <p className="text-primary font-semibold">
+          You have not posted any blogs yet.
+        </p>
+        <button
+          className="btn bg-info hover:bg-info/50"
+          onClick={() => navigate('/shareExperience')}
+        >
+          Post Now
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div style={{ minHeight: 'calc(100vh - 100px)' }}>
       <h1 className="text-3xl text-center my-3">{user.displayName}'s blogs</h1>
